@@ -1,7 +1,6 @@
 import torch
 from model import BigramLanguageModel
 from utils import build_vocab, build_dataset
-#import matplotlib.pyplot as plt
 
 
 def train(model, path, iterations):
