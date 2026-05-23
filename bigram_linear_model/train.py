@@ -12,8 +12,8 @@ def train(model, path, iterations):
         iterations = 10000
 
     for step in range(iterations):
-        probs = model.forward(xs)
-        loss = model.loss(probs, ys)
+        logits = model.forward(xs)
+        loss = model.loss(logits, ys)
 
         model.W.grad = None
         loss.backward()

@@ -10,9 +10,8 @@ class BigramLanguageModel:
 
     def forward(self, xs):
         logits = self.W[xs]
-        probs = softmax(logits)
 
-        return probs
+        return logits
 
 
     def loss(self, probs, ys):

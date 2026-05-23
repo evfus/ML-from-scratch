@@ -37,5 +37,6 @@ def softmax(logits):
     return probs
 
 
-def cross_entropy(probs, ys):
+def cross_entropy(logits, ys):
+    probs = softmax(logits)
     return -probs[torch.arange(ys.nelement()), ys].log().mean()
