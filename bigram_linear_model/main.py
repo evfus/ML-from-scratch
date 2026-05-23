@@ -3,7 +3,7 @@ from train import train
 from utils import build_vocab
 
 if __name__ == "__main__":
-    path = input("Path to dataset: ")
+    path = "././data/names.txt"
     iterations = int(input("How many iterations for the training loop (default = 10000): "))
 
     words, stoi, itos = build_vocab(path)
