@@ -13,18 +13,22 @@ if __name__ == "__main__":
     model = MLP(vocab_size)
 
     iterations = input("How many iterations for training loop (default 10000): ")
-    if iterations == "":
-        iterations = 10000
     
     while True:
         train(model, path, iterations)
 
-        response = input("Would you like to continue training? (y/n): ")
+        response = input("Would you like to continue training? (y/[n]): ")
         
         if response == 'y':
-            iterations = int(input("Number of iterations for the training loop (default = 10000): "))
+            iterations = input("\nNumber of iterations for the training loop (default = 10000): ")
 
         else:
-            num_samples = int(input("How many samples to generate: "))
-            model.sample(num_samples, itos)
+            while True:
+                num_samples = int(input("\nHow many samples to generate: "))
+                model.sample(num_samples, itos)
+                
+                response = input("Would you like more samples? (y/[n]): ")
+                
+                if response == 'n' or response == '':
+                    break
             break
