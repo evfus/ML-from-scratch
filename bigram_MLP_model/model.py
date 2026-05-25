@@ -61,7 +61,7 @@ class Tanh:
 
 
 class MLP:
-    def __init__(self, vocab_size, context_size = 3, emb_dim = 10, n_hidden = 100):
+    def __init__(self, vocab_size, context_size = 3, emb_dim = 10, n_hidden = 300):
         self.embeddings = torch.randn((vocab_size, emb_dim))
         self.context_size = context_size
 
