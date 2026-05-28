@@ -3,9 +3,9 @@ from utils import softmax, cross_entropy
 
 class Linear:
     def __init__(self, fan_in, fan_out, bias = True):
-        self.weight = torch.randn((fan_in, fan_out))
+        self.weight = (torch.randn((fan_in, fan_out)) / fan_in ** 0.5) * 5/3
         self.bias = torch.zeros(fan_out) if bias else None
-        
+
     def __call__(self, x):
         self.out = x @ self.weight
 
@@ -44,7 +44,6 @@ class BatchNorm1d:
             with torch.no_grad():
                 self.running_mean = (1 - self.momentum) * self.running_mean + self.momentum * xmean
                 self.running_var = (1 - self.momentum) * self.running_var + self.momentum * xvar
-
         return self.out
 
     def parameters(self):
@@ -54,6 +53,10 @@ class BatchNorm1d:
 class Tanh:
     def __call__(self, x):
         self.out = torch.tanh(x)
+
+        if torch.is_grad_enabled():
+            self.out.retain_grad()
+
         return self.out
 
     def parameters(self):
@@ -67,6 +70,7 @@ class MLP:
 
         self.layers = [
             Linear(emb_dim * self.context_size, n_hidden, bias = False), BatchNorm1d(n_hidden), Tanh(),
+            Linear(n_hidden, n_hidden, bias = False), BatchNorm1d(n_hidden), Tanh(),
             Linear(n_hidden, n_hidden, bias = False), BatchNorm1d(n_hidden), Tanh(),
             Linear(n_hidden, n_hidden, bias = False), BatchNorm1d(n_hidden), Tanh(),
             Linear(n_hidden, n_hidden, bias = False), BatchNorm1d(n_hidden), Tanh(),
