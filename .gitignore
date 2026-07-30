@@ -1,3 +1,6 @@
+#checkpoints
+decoder_transformer/outputs/checkpoints/last.pt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
